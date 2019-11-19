@@ -20,7 +20,7 @@ router.get('/user',(req,res)=>{
 router.post('/user',async function(req,res){
 
   try{
-
+  console.log("submitted form:"+JSON.stringify(req.body))
     //get the result from api
     var result = await userapi.adduser(req.body)
 

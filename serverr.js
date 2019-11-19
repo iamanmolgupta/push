@@ -3,6 +3,9 @@ var app = express();               //creating instance of express
 var router = require('./route');    //import router
 var bodyParser = require('body-parser');
 const mongoose = require('mongoose');  
+const cors = require('cors');
+
+app.use(cors());
 //connect with the mongodb
 mongoose.connect("mongodb://localhost:27017/anmoldatabase",{ useNewUrlParser: true });
 
