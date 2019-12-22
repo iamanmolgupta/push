@@ -1,9 +1,12 @@
 var express = require('express');   ///import express
 var app = express();               //creating instance of express
-var router = require('./route');    //import router
+var router = require('./router/route'); 
+var router1 = require('./router/imageRouter')   //import router
 var bodyParser = require('body-parser');
 const mongoose = require('mongoose');  
 const cors = require('cors');
+
+app.use(express.static('uploads'));
 
 app.use(cors());
 //connect with the mongodb
@@ -21,7 +24,9 @@ app.use(bodyParser.json())
 //use the router to route the path
 app.use("/",router);
 
+app.use("/timeline",router1);
+
 //server
-app.listen(9081,()=>{
+app.listen(8080,()=>{
   console.log("server is running");
 })
