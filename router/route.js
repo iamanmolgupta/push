@@ -1,5 +1,6 @@
 var router = require('express').Router();  //import and create router instance
 var userapi = require('../Api/api');   //import api
+var {checkToken,generateToken} = require('../Middleware/middleware')
 
 //render homepage
 router.get('/',(req,res)=>{
@@ -88,10 +89,10 @@ router.post('/login',async function(req,res){
 
 try{
   //call the loginuser method in the api
-  console.log(req.body)
+  let token = generateToken(req.body)
+  console.log(token)
   var resultlogin  = await userapi.loginuser(req.body);
-  console.log({resultlogin});
-  res.send(resultlogin);
+  res.send([...resultlogin, token]);
 }
 catch(err){
   console.log(err);

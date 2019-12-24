@@ -1,6 +1,7 @@
 var router1 = require('express').Router();  //import and create router instance
 var userapi = require('../Api/imageApi');   //import api
 var multer  = require('multer');
+var { checkToken, generateToken } = require('../Middleware/middleware')
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, './uploads')
@@ -56,7 +57,7 @@ router1.post('/comment',async(req,res)=>{
       console.log(err);
   }
 })
-router1.post('/allData',async(req,res)=>{
+router1.post('/allData', checkToken, async(req,res)=>{
   try{
   
   let result = await userapi.getData();

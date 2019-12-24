@@ -8,7 +8,11 @@ const cors = require('cors');
 
 app.use(express.static('uploads'));
 
-app.use(cors());
+app.use(
+  cors({
+      allowedHeaders: ["Content-Type", "Authorization", "Content-Disposition"]
+  })
+);
 //connect with the mongodb
 mongoose.connect("mongodb://localhost:27017/anmoldatabase",{ useNewUrlParser: true });
 
