@@ -10,7 +10,7 @@ app.use(express.static('uploads'));
 
 app.use(
   cors({
-      allowedHeaders: ["Content-Type", "Authorization", "Content-Disposition"]
+      allowedHeaders: ["Content-Type", "authorization", "Content-Disposition"]
   })
 );
 //connect with the mongodb

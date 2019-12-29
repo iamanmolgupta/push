@@ -2,67 +2,40 @@ var userdb = require('../Schema/imageSchema'); //import the schema
 
 
 module.exports={
-    create:function(data){
+  create:function(data){
         return new Promise((resolve,rej)=>{
-   userdb.create(data,function(err,result){
-  
-    userdb.find({User:data.User},function(err,result1){
-        if(result1.length>0){     
-        resolve(result1);}
-        else{
-            rej(err);
-        }
-        })
-   
-    })
+   userdb.create(data).then((result)=>{
+       resolve(result).catch(err=>{
+           rej(err);
+       })
+   })
   })
 },
-all:function(data){
-    // console.log({data});
-    return new Promise((resolve,rej)=>{
-    userdb.find({User:data.userid},function(err,result1){
-        console.log({result1})
-        if(result1.length>0){   
-        resolve(result1);}
-        else{
-            rej(err);
-        }
-        })
-})},
-ParticularImage:function(data){
-    // console.log({data});
-    return new Promise((resolve,rej)=>{
-    userdb.find({_id:data.id},function(err,result1){
-        if(result1.length>0){   
-        resolve(result1);}
-        else{
-            rej(err);
-        }
-        })
-})},
+ findData :function(filter, fields, options){
+   return new Promise ((resolve, rej)=>{
+       userdb
+       .find(filter, fields)
+       .sort(options.sort)
+       .skip(options.skip)
+       .limit(options.limit)
+       .then(result=>{
+        //    console.log({result})
+           resolve(result);
+       }).catch(err=>{
+        //    console.log({err})
+           rej(err);
+       })
+   })
+ },
+
 comment:function(data){
     return new Promise((resolve,rej)=>{
-        userdb.updateOne({_id:data.id},{$push:{enterComment:data.comm}},function(err,result){
-            console.log({result})
-            if(result){
-                resolve(result);}
-                else{
-                    rej(err);
-                }
-            
+        userdb.updateOne({_id:data.id},{$push:{enterComment:data.comm}}).then(result =>{
+            resolve(result);
+        }).catch(err=>{
+            rej(err);
         })
     }) 
 },
-getData:function(){
-    
-    return new Promise((resolve,rej)=>{
-    userdb.find({},function(err,result1){
-        if(result1.length>0){     
-        resolve(result1);}
-        else{
-            rej(err);
-        }
-        })
-})}
 
 }
