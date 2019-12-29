@@ -29,7 +29,7 @@ let checkToken = (req, res, next) => {
 let generateToken = (data) => {
     console.log({ data });
     const payload = { user: data.Email };
-    const options = { expiresIn: '50s' };
+    const options = { expiresIn: '1m' };
     const secret = development.secret;
     let token = jwt.sign(payload, secret, options);
     return { payload, token, options };

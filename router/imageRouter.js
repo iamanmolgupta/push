@@ -39,7 +39,7 @@ router1.get('/allImage', checkToken, async(req,res)=>{
     res.send((result));
     }
     catch(err){
-      console.log({ err })
+      // console.log({ err })
         res.send(err);
     }
 })
@@ -75,13 +75,26 @@ router1.post('/comment', checkToken, async(req,res)=>{
       res.send(err);
   }
 })
+router1.post('/likes', checkToken, async(req,res)=>{
+  try{
+    // console.log("likes", req.body)
+   let result = await userapi.likes(req.body.likeData);
+   result = await userapi.findData({},{},{skip:0,limit:0,sort:{date:-1}})
+   res.send(result);
+  //  console.log({result})
+  }
+  catch(err){
+    // console.log({err})
+    res.send(err)
+  }
+})
 router1.get('/allData', checkToken, async(req,res)=>{
   try{
   let result = await userapi.findData( {}, {}, {skip:0, limit:0, sort:{date:-1}});
   res.send(result);
   }
   catch(err){
-    console.log({err})
+    // console.log({err})
       res.send(err)
 
   }

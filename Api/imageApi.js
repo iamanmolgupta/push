@@ -4,11 +4,12 @@ var userdb = require('../Schema/imageSchema'); //import the schema
 module.exports={
   create:function(data){
         return new Promise((resolve,rej)=>{
-   userdb.create(data).then((result)=>{
-       resolve(result).catch(err=>{
-           rej(err);
-       })
-   })
+   userdb.create(data)
+   .then((result)=>{
+       resolve(result)
+   }).catch(err=>{
+    rej(err);
+})
   })
 },
  findData :function(filter, fields, options){
@@ -37,5 +38,15 @@ comment:function(data){
         })
     }) 
 },
+likes: function(data){
+   return new Promise((response,rej)=>{
+    //    console.log({"data": data});
+       userdb.updateOne({_id:data.id},{$addToSet:{likes:data.user}}).then((result)=>{
+           response(result)
+       }).catch(err=>{
+           rej(err);
+       })
+   })
+}
 
 }

@@ -6,9 +6,9 @@ var userSchema = mongoose.Schema({
   User:{type:String},
   Image:{type:String},
   Category:{type:String},
-  date: { type: String, default: new Date()},
+  date: { type: Date, default: Date.now },
   enterComment: {type: Array, "default" : []},
-  likes :{type: Array, "default" : [], index:true},
+  likes :{type: Array, "default" : []},
   
 }
 )
